@@ -1,18 +1,21 @@
 import {InferGetStaticPropsType} from 'next'
-import { type } from 'os'
 
 type Product = {
     id: number,
     name:String,
+    email: String,
     address: String,
+    color: String
 }
 export const getStaticProps = async()=>{
-    const resapi = await fetch("http://localhost:3000/api");
+    require('dotenv').config()
+    const resapi = await fetch(`${process.env.API_url}`);
     const posts:Product[] = await resapi.json()
     return {
         props: {
             posts,
         },
+        revalidate: 10,
       }
 }
 function Product({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -23,7 +26,9 @@ function Product({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
         <li>
             <h3>{post.id}</h3>
             <p>{post.name}</p>
+            <p>{post.email}</p>
             <p>{post.address}</p>
+            <p>{post.color}</p>
         </li>
          ))}
         </ul>

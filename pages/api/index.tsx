@@ -4,7 +4,9 @@ var data = Mock.mock({
     'list|1-10': [{
         'id|+1': 1,
         "name": Random.name(),
-        "address": Random.city()
+        "email" : Random.email(),
+        "address": Random.city(),
+        "color": Random.color()
     }]
 })
 
